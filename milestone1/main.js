@@ -28,8 +28,8 @@ createApp({
           ],
         },
         {
-          name: 'Fabio',
-          avatar: './img/avatar_2.jpg',
+          name: 'Zoe C.',
+          avatar: './img/avatar_io.jpg',
           visible: true,
           messages: [
             {
