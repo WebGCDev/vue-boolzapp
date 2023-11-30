@@ -169,5 +169,17 @@ createApp({
       ],
     };
   },
-  methods: {},
+  methods: {
+    splitDate(element, i) {
+      const time = element.date.split(' ').pop();
+      let no_sec_array = time.split(':');
+      no_sec_array.pop();
+      const no_sec_time = no_sec_array.join(':');
+
+      return no_sec_time;
+    },
+    selectChat(i) {
+      this.activeContact = i;
+    },
+  },
 }).mount('#app');

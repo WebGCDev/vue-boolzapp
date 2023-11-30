@@ -41,8 +41,8 @@
           <div
             class="list_header d-flex justify-content-between align-items-center"
           >
-          <!-- List of the user who is using the application  -->
-          <div class="my_avatar">
+            <!-- List of the user who is using the application  -->
+            <div class="my_avatar">
               <img class="" src="./img/avatar_2.jpg" alt="My Avatar" />
               <span class="my_name">Gaetano</span>
             </div>
@@ -52,7 +52,7 @@
               <i class="fa-solid fa-message"></i>
               <i class="fa-solid fa-ellipsis-vertical"></i>
             </div>
-        </div>
+          </div>
           <div class="enable_alert d-flex align-items-center px-3">
             <div class="enable_icon pe-2">
               <i class="fa-solid fa-bell-slash"></i>
@@ -82,9 +82,11 @@
           <div class="preview">
             <div
               class="chat_preview d-flex justify-content-between p-2"
+              :class="activeContact === index ? 'active' : ''"
               v-for="(contact, index) in contacts"
+              @click="selectChat(index)"
             >
-            <div class="chat_preview_left d-flex">
+              <div class="chat_preview_left d-flex">
                 <img
                   class="contact_avatar"
                   :src="'./' + contact.avatar"
@@ -94,19 +96,22 @@
                   class="contact_info d-flex flex-column justify-content-center"
                 >
                   <span class="contact_name d-block"> {{contact.name}} </span>
-                  </span>
+
+                  <span class="last_message_text">
+                    Ultimo messaggio inviato</span
+                  >
                 </div>
-                </div>
-               <!-- Last message sent time  -->
+              </div>
+              <!-- Last message sent time  -->
               <div class="chat_preview_right">
-                <div class="last_message_time"></div>
+                <div class="last_message_time">16:00</div>
               </div>
             </div>
           </div>
         </div>
         <!-- Chat containing open conversation -->
         <div id="chat_container">
-        <div
+          <div
             class="chat_header d-flex justify-content-between align-items-center"
           >
             <div class="active_contact d-flex">
@@ -121,9 +126,11 @@
                 <span class="contact_name d-block">
                   {{contacts[activeContact].name}}
                 </span>
-                <span class="last_access"> Ultimo accesso oggi alle</span>
+                <span class="last_access">
+                  Ultimo accesso oggi alle ore 20:15</span
+                >
               </div>
-              </div>
+            </div>
             <!-- Icons Find in conversation, attach, options -->
             <div class="chat_settings">
               <i class="fa-solid fa-magnifying-glass"></i>
@@ -133,6 +140,18 @@
           </div>
           <!-- Chat where the conversation will take place with related messages received and sent -->
           <div class="chat_body p-5 d-flex flex-column">
+            <div
+              class="message m-2 d-flex justify-content-between"
+              v-for="(element, index) in contacts[activeContact].messages"
+              :class="element.status === 'sent' ? 'sent' : 'received'"
+            >
+              <span class="span_message align-self-start"
+                >{{element.message}}</span
+              >
+              <span class="span_date d-block text-end align-self-end">
+                {{splitDate(element, index)}}</span
+              >
+            </div>
           </div>
           <!-- Write message to selected user -->
           <div class="chat_input d-flex align-items-center">
@@ -146,7 +165,7 @@
           </div>
         </div>
       </div>
-      </div>
+    </div>
     <!-- Vue JS -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <!-- Vue JS -->
