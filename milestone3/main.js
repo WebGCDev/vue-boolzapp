@@ -5,6 +5,11 @@ createApp({
     return {
       newMessage: '',
       activeContact: 0,
+      newReceivedMessage: {
+        date: '',
+        message: 'Ok.',
+        status: 'received',
+      },
       contacts: [
         {
           name: 'Michele',
@@ -184,7 +189,7 @@ createApp({
     },
     sendMessage(i) {
       const newMessageDate = new Date();
-      /*   JavaScript Date method */
+      // JavaScript Date Metodh
       const now = [
         newMessageDate.getHours(),
         (newMessageDate.getMinutes() < 10 ? '0' : '') +
@@ -199,6 +204,22 @@ createApp({
 
       this.contacts[i].messages.push(newMessage);
       this.newMessage = '';
+
+      setTimeout(this.recivedMessage, 1000);
+    },
+
+    // Generare messaggio automatico di risposta con intervallo impostato di un secondo
+
+    recivedMessage() {
+      const newRecivedMessage = { ...this.newReceivedMessage };
+      const newDate = new Date();
+      const now = [
+        newDate.getHours(),
+        (newDate.getMinutes() < 10 ? '0' : '') + newDate.getMinutes(),
+        newDate.getSeconds(),
+      ].join(':');
+      newRecivedMessage.date = now;
+      this.contacts[this.activeContact].messages.push(newRecivedMessage);
     },
   },
 }).mount('#app');
